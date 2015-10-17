@@ -20,6 +20,12 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
 
+  it 'has a valid "user with articles" factory' do
+    user = create(:user_with_articles, article_count: 3)
+    expect(user).to be_valid
+    expect(user.articles.count).to eq(3)
+  end
+
   describe 'validations' do
     it 'is invalid without a first_name' do
       user = build(:user, first_name: nil)

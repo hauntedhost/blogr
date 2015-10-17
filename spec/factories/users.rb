@@ -17,6 +17,18 @@ FactoryGirl.define do
     last_name { Faker::Name.last_name }
     sequence(:email) { |n| Faker::Internet.email }
 
+    factory :user_with_articles do
+      transient do
+        article_count 2
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.article_count.times do
+          user.articles << build(:article, author: user)
+        end
+      end
+    end
+
     factory :member do
       role 'member'
     end
