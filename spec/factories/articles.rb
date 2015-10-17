@@ -13,7 +13,7 @@
 FactoryGirl.define do
   factory :article do
     association :author, factory: :user
-    title "MyString"
-    body "MyText"
+    title { Faker::Lorem.sentence.titleize }
+    body { Faker::Lorem.paragraph }
   end
 end

@@ -31,6 +31,5 @@ RSpec.describe Article, type: :model do
     it 'is invalid without a body' do
       expect(build(:article, body: nil)).not_to be_valid
     end
-
   end
 end
