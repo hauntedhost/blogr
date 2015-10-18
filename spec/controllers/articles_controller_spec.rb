@@ -115,6 +115,22 @@ RSpec.describe ArticlesController, type: :controller do
       get :index
       expect(response).to render_template(:index)
     end
+
+    context 'GET /users/:user_id/articles' do
+      it 'returns articles for the given user' do
+        author1 = create(:user)
+        articles1 = create_list(:article, 3, author: author1)
+
+        author2 = create(:user)
+        articles2 = create_list(:article, 3, author: author2)
+
+        get :index, user_id: author1.id
+        articles = assigns(:articles)
+
+        expect(articles).to match_array(articles1)
+        expect(articles).not_to include(articles2)
+      end
+    end
   end
 
   describe 'GET #show' do

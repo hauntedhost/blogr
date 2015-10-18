@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
   before_action :require_user!, only: [:create, :edit, :update]
-  before_action :set_article, only: [:destroy, :edit, :show, :update]
 
   def create
     @article = current_user.articles.build(article_params)
@@ -13,36 +12,43 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
+    article.destroy
     redirect_to articles_path, notice: 'Article Deleted'
   end
 
   def edit
-    render :edit, locals: { article: @article }
+    render :edit, locals: { article: article }
   end
 
   def index
-    @articles = Article.all
-    render :index, locals: { articles: @articles }
+    render :index, locals: { articles: articles }
   end
 
   def show
-    render :show, locals: { article: @article}
+    render :show, locals: { article: article}
   end
 
   def update
-    if @article.update_attributes(article_params)
-      redirect_to article_path(@article), notice: 'Article Updated'
+    if article.update_attributes(article_params)
+      redirect_to article_path(article), notice: 'Article Updated'
     else
-      flash.now[:error] = @article.errors.full_messages.to_sentence
-      render :edit, locals: { article: @article }
+      flash.now[:error] = article.errors.full_messages.to_sentence
+      render :edit, locals: { article: article }
     end
   end
 
   private
 
-  def set_article
-    @article = Article.find(params[:id])
+  def article
+    @article ||= Article.find(params[:id])
+  end
+
+  def articles
+    @articles ||= if params[:user_id]
+      Article.where(author_id: params[:user_id])
+    else
+      Article.all
+    end
   end
 
   def article_params
