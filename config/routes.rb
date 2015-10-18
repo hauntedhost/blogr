@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   resources :users do
-    resources :articles
+    resources :articles, only: [:index]
   end
 
   resources :articles

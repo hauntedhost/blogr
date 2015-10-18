@@ -116,6 +116,21 @@ RSpec.describe ArticlesController, type: :controller do
       expect(response).to render_template(:index)
     end
 
+    context 'given CSV format request' do
+      it 'returns a CSV file' do
+        get :index, format: :csv
+        expect(response.headers['Content-Type']).to match('text/csv')
+      end
+
+      it 'returns CSV content' do
+        get :index, format: :csv
+        header = Article.column_names.join(',')
+        article = articles.first
+        expect(response.body).to match(header)
+        expect(response.body).to match("#{article.title},#{article.body}")
+      end
+    end
+
     context 'GET /users/:user_id/articles' do
       it 'returns articles for the given user' do
         author1 = create(:user)

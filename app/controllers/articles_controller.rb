@@ -21,11 +21,14 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    render :index, locals: { articles: articles }
+    respond_to do |format|
+      format.html { render :index, locals: { articles: articles } }
+      format.csv { send_csv articles }
+    end
   end
 
   def show
-    render :show, locals: { article: article}
+    render :show, locals: { article: article }
   end
 
   def update
