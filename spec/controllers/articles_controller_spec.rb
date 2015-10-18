@@ -357,7 +357,7 @@ RSpec.describe ArticlesController, type: :controller do
   end
 
   context 'as a logged in member' do
-    before(:each) { login_user(user) }
+    before(:each) { set_user_session(user) }
 
     it_behaves_like 'can read articles'
     it_behaves_like 'can create new articles'
@@ -367,7 +367,7 @@ RSpec.describe ArticlesController, type: :controller do
   context 'as a logged in admin' do
     let(:user) { create(:admin, session_key: 123) }
 
-    before(:each) { login_user(user) }
+    before(:each) { set_user_session(user) }
 
     it_behaves_like 'can read articles'
     it_behaves_like 'can create new articles'

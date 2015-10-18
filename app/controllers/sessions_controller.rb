@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.correct_password?(params[:password])
       user.reset_session_key!
       session[:session_key] = user.session_key
-      redirect_to root_path
+      redirect_to root_path, notice: 'Logged in'
     else
       flash.now[:error] = 'Invalid login'
       render :new
