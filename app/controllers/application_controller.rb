@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  helper_method :current_user, :logged_in?
+
   private
 
   def current_user
@@ -24,5 +26,9 @@ class ApplicationController < ActionController::Base
       type: 'text/csv; charset=utf8; header=present',
       disposition: 'attachment; filename=articles.csv'
     )
+  end
+
+  def login_user!
+
   end
 end

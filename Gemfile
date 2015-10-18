@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 ruby '2.2.2'
 
+gem 'bcrypt'
 gem 'jquery-rails'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'

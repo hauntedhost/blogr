@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # root 'welcome#index'
+  root 'articles#index'
 
   resources :users do
     resources :articles, only: [:index]
@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
   get 'login', to: 'sessions#new'
+  get 'logout', to: 'sessions#destroy'
 end
