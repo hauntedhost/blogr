@@ -66,6 +66,7 @@ class ArticlesController < ApplicationController
   end
 
   def authorize_user!
+    return true if current_user.admin?
     unless current_user.articles.where(id: article.id).present?
       head :unauthorized
     end
