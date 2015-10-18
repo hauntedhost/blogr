@@ -13,3 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function() {
+  $('a[data-show]').click(function(e) {
+    e.preventDefault();
+    var selector = $(this).data('show');
+    var $el = $(selector);
+    $el.toggleClass('hide');
+  });
+});

@@ -16,6 +16,8 @@
   <%= link_to 'Login', login_path %>
 <% end %>
 
+| <%= link_to 'About Us', '#', data: { show: '[data-about-us]' } %>
+  <span data-about-us class="hide">-- We are your friends.</span>
 <hr>
 
 <%= yield %>
