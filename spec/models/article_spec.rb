@@ -20,16 +20,8 @@ RSpec.describe Article, type: :model do
   end
 
   describe 'validations' do
-    it 'is invalid without an author' do
-      expect(build(:article, author: nil)).not_to be_valid
-    end
-
-    it 'is invalid without a title' do
-      expect(build(:article, title: nil)).not_to be_valid
-    end
-
-    it 'is invalid without a body' do
-      expect(build(:article, body: nil)).not_to be_valid
-    end
+    it { is_expected.to validate_presence_of(:author) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:body) }
   end
 end
