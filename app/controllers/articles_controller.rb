@@ -24,6 +24,7 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       format.html { render :index, locals: { articles: articles } }
       format.csv { send_csv articles }
+      format.json { render json: articles }
     end
   end
 

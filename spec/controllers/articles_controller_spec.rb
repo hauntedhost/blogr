@@ -125,9 +125,17 @@ RSpec.describe ArticlesController, type: :controller do
       it 'returns CSV content' do
         get :index, format: :csv
         header = Article.column_names.join(',')
-        article = articles.first
+        article = assigns(:articles).first
         expect(response.body).to match(header)
         expect(response.body).to match("#{article.title},#{article.body}")
+      end
+    end
+
+    context 'given JSON format request' do
+      it 'returns JSON' do
+        get :index, format: :json
+        articles = assigns(:articles)
+        expect(response.body).to eq(articles.to_json)
       end
     end
 
