@@ -1,5 +1,5 @@
 module LoginMacros
-  def sign_in(user, password)
+  def sign_in(user, password = '12345678')
     visit root_path
     click_link 'Login'
     fill_in :email, with: user.email
