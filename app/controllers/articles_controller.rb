@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :require_user!, only: [:create, :edit, :update]
+  before_action :require_user!, only: [:create, :edit, :new, :update]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def create
@@ -27,6 +27,11 @@ class ArticlesController < ApplicationController
       format.csv { send_csv articles }
       format.json { render json: articles }
     end
+  end
+
+  def new
+    @article = Article.new
+    render :new, locals: { article: @article }
   end
 
   def show

@@ -178,6 +178,31 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
+  describe 'GET #new' do
+    context 'without a logged in user' do
+      it 'redirects to login page' do
+        get :new
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context 'with a logged in user' do
+      before(:each) {
+        session[:session_key] = author.session_key
+      }
+
+      it 'assigns a new contact' do
+        get :new
+        expect(assigns(:article)).to be_a_new(Article)
+      end
+
+      it 'renders the :new template' do
+        get :new
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
   describe 'GET #show' do
     let!(:article) { create(:article) }
 
