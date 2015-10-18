@@ -31,9 +31,15 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include LoginMacros
 
-  config.before(:each) do
+  config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
   config.after(:each) do
