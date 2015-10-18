@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :require_user!, only: [:create, :edit, :update]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def create
     @article = current_user.articles.build(article_params)
@@ -57,5 +58,11 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :body)
+  end
+
+  def authorize_user!
+    unless current_user.articles.where(id: article.id).present?
+      head :unauthorized
+    end
   end
 end
